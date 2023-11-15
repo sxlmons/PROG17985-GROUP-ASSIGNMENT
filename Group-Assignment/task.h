@@ -24,7 +24,8 @@
 typedef struct task { 
 	int taskNum;
 	char taskName[MAX_NAME];
-	char taskStatus[MAX_NAME]; 
+	char taskStatus[MAX_NAME];
+	struct task* next;
 }TASK;
 
 TASK CreateTask(int taskNum, char* taskName, char* taskStatus);
