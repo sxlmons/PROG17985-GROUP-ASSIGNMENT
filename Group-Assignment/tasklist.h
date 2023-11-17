@@ -2,13 +2,18 @@
 #include "task.h"
 
 // Basic linked list struct that contains all the basic data of the list
-typedef struct {
+typedef struct taskList {
 	TASK* first;
 	TASK* last;
 	int count;
-} TaskList;
+} TASKLIST;
 
-TaskList* CreateTaskList();
-int GetTaskListCount(TaskList* list);
-bool AddTaskToList(TaskList* list, TASK task);
-bool DestroyTaskList(TaskList* list);
+TASKLIST* CreateTaskList();
+
+int GetTaskListCount(TASKLIST* taskList);
+TASK* GetTaskByNumber(TASKLIST* taskList, int taskNum);
+TASK* GetTaskByName(TASKLIST* taskList, char* taskName);
+
+bool AddTaskToList(TASKLIST* taskList, TASK task);
+
+void DestroyTaskList(TASKLIST* taskList);

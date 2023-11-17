@@ -1,9 +1,11 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "tasklist.h"
 #include <stdlib.h>
+#include <string.h>
 
 // Method that mallocs a new list and sets the default values 
-TaskList* CreateTaskList() {
-	TaskList* taskList = malloc(sizeof(TaskList));
+TASKLIST* CreateTaskList() {
+	TASKLIST* taskList = malloc(sizeof(TASKLIST));
 	if (taskList == NULL) {
 		return NULL;
 	}
@@ -15,13 +17,59 @@ TaskList* CreateTaskList() {
 }
 
 // Method that returns the amount of elements a task list has
-int GetTaskListCount(TaskList* list) {
-	return list->count;
+int GetTaskListCount(TASKLIST* taskList) {
+	return taskList->count;
+}
+
+TASK* GetTaskByNumber(TASKLIST* taskList, int taskNum) {
+	if (taskList == NULL) {
+		return NULL;
+	}
+
+	bool found = false;
+	TASK* current = taskList->first;
+	TASK* prev = current;
+	while (!found && current != NULL) {
+		prev = current;
+		if (current->taskNum == taskNum) {
+			found = true;
+		}
+		current = current->next;
+	}
+
+	if (!found) {
+		return NULL;
+	}
+
+	return prev;
+}
+
+TASK* GetTaskByName(TASKLIST* taskList, char* taskName) {
+	if (taskList == NULL) {
+		return NULL;
+	}
+
+	bool found = false;
+	TASK* current = taskList->first;
+	TASK* prev = current;
+	while (!found && current != NULL) {
+		prev = current;
+		if (_stricmp(taskName, current->taskName) == 0) {
+			found = true;
+		}
+		current = current->next;
+	}
+
+	if (!found) {
+		return NULL;
+	}
+
+	return prev;
 }
 
 // Method that adds a task to the task list
-bool AddTaskToList(TaskList* list, TASK task) {
-	if (list == NULL) {
+bool AddTaskToList(TASKLIST* taskList, TASK task) {
+	if (taskList == NULL) {
 		return false;
 	}
 
@@ -30,36 +78,34 @@ bool AddTaskToList(TaskList* list, TASK task) {
 		return false;
 	}
 
-	CopyTask(newTask, task);
+	newTask->taskNum = task.taskNum;
+	strncpy(newTask->taskName, task.taskName, MAX_NAME);
+	strncpy(newTask->taskStatus, task.taskStatus, MAX_NAME);
+	newTask->next = NULL;
 
 	// This code will only run if there are 0 elements in the list
-	if (GetTaskListCount(list) <= 0) {
-		list->first = newTask;
-		list->last = newTask;
-		list->count++;
+	if (GetTaskListCount(taskList) <= 0) {
+		taskList->first = newTask;
+		taskList->last = newTask;
+		taskList->count++;
 		return true;
 	}
 
 	// This code will only run if there is more than 1 element in the list
-	list->last->next = newTask;
-	list->last = newTask;
-	list->count++;
+	taskList->last->next = newTask;
+	taskList->last = newTask;
+	taskList->count++;
 	return true;
 }
 
 // Method that destroys all elements in a list and then the list itself at the end
-bool DestroyTaskList(TaskList* list) {
-	if (list == NULL) {
-		return false;
-	}
-
-	TASK* current = list->first;
+void DestroyTaskList(TASKLIST* taskList) {
+	TASK* current = taskList->first;
 	while (current != NULL) {
 		TASK* temp = current;
 		current = current->next;
 		free(temp);
 	}
 	
-	free(list);
-	return true;
+	free(taskList);
 }
