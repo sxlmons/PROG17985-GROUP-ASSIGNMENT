@@ -26,22 +26,15 @@ TASK* GetTaskByNumber(TASKLIST* taskList, int taskNum) {
 		return NULL;
 	}
 
-	bool found = false;
 	TASK* current = taskList->first;
-	TASK* prev = current;
-	while (!found && current != NULL) {
-		prev = current;
+	while (current != NULL) {
 		if (current->taskNum == taskNum) {
-			found = true;
+			return current;
 		}
 		current = current->next;
 	}
 
-	if (!found) {
-		return NULL;
-	}
-
-	return prev;
+	return NULL;
 }
 
 TASK* GetTaskByName(TASKLIST* taskList, char* taskName) {
@@ -49,22 +42,15 @@ TASK* GetTaskByName(TASKLIST* taskList, char* taskName) {
 		return NULL;
 	}
 
-	bool found = false;
 	TASK* current = taskList->first;
-	TASK* prev = current;
-	while (!found && current != NULL) {
-		prev = current;
+	while (current != NULL) {
 		if (_stricmp(taskName, current->taskName) == 0) {
-			found = true;
+			return current;
 		}
 		current = current->next;
 	}
 
-	if (!found) {
-		return NULL;
-	}
-
-	return prev;
+	return NULL;
 }
 
 // Method that adds a task to the task list

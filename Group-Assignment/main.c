@@ -21,9 +21,14 @@ int main(void) {
 	AddTaskToList(tasks, t21);
 	AddTaskToList(tasks, t24);
 
-	TASK* t = GetTaskByName(tasks, "TAsSK 21");
+	TASK* t = GetTaskByName(tasks, "TASK 21");
 	if (t != NULL) {
 		printf("%d %s %s\n", t->taskNum, t->taskName, t->taskStatus);
+	}
+
+	TASK* t2 = GetTaskByNumber(tasks, 21);
+	if (t2 != NULL) {
+		printf("%d %s %s\n", t2->taskNum, t2->taskName, t2->taskStatus);
 	}
 
 	DestroyTaskList(tasks);
