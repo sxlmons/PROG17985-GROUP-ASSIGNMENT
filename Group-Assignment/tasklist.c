@@ -89,9 +89,9 @@ bool RemoveTaskFromList(TASKLIST* taskList, int taskNum) {
 		return false;
 	}
 	
-	TASK* foundTask 
+	TASK* foundTask = GetTaskByNumber(taskList, taskNum);
 
-	if (GetTaskByNumber(taskNum) != NULL) {
+	if (GetTaskByNumber(taskList, taskNum) != NULL) {
 		return false;
 	}
 
