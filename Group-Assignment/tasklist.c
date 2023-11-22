@@ -84,6 +84,22 @@ bool AddTaskToList(TASKLIST* taskList, TASK task) {
 	return true;
 }
 
+bool RemoveTaskFromList(TASKLIST* taskList, int taskNum) {
+	if (taskList == NULL) {
+		return false;
+	}
+	
+	TASK* foundTask 
+
+	if (GetTaskByNumber(taskNum) != NULL) {
+		return false;
+	}
+
+
+
+	return true;
+}
+
 // Method that destroys all elements in a list and then the list itself at the end
 void DestroyTaskList(TASKLIST* taskList) {
 	TASK* current = taskList->first;
