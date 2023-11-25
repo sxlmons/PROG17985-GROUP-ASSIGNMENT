@@ -13,6 +13,77 @@
 #include "tasklist.h"
 
 int main(void) {
+	// if you want i can change this so that it's all in functions I will probabley just move it into a new file to make it look nice
+	int input, TaskNum;
+	char name[MAX_NAME], status[MAX_NAME];
+	while (true)
+	{
+		printf("Welcome to task tracker 2000\n");
+		printf("These are the options you can choose from\n");
+		printf("1) Add task\n");
+		printf("2) Display task\n");
+		printf("3) Delete task\n");
+		printf("4) Search for task\n");
+		//  printf("save task\n");			might get rid of these later just putting them in for now
+		//	printf("load task\n");
+		printf("10) exit program\n");			//will change num later to fit in
+		printf("Please use the number associated with your choice: \n");
+		scanf_s("%d", &input);
+		if (input == 1)
+		{
+			printf("please input the task number you want to make: \n");
+			scanf_s("%d", &TaskNum);
+			printf("Please input the name of the task: \n");
+			fgets(name, MAX_NAME, stdin);
+			printf("Please input the the status of the task: \n");
+			fgets(status, MAX_NAME, stdin);
+			TASK NewTask = {*&TaskNum, *name, *status};
+			//AddTaskToList(tasks, NewTask);
+		}if (input == 2)
+		{
+			//Display task
+		}if (input == 3)
+		{
+			printf("Input the number for the task you wish to remove: \n");
+			scanf_s("%d", &input);
+			//RemoveTaskFromList(*tasklist, &input);
+		}if (input == 4)
+			printf("How would you like to search?\n");
+			printf("1) by name");
+			printf("2) by number");
+			printf("0) to return to main menu");
+			scanf_s("%d", &input);
+			if (input == 1)
+			{
+				printf("please insert the name of the task: ");
+				fgets(name ,MAX_NAME, stdin);
+				//GetTaskByName(tasks, name);
+			}if (input == 2)
+			{
+				printf("Please enter the num corresponding to the task: ");
+				scanf_s("%d", &input);
+				//GetTaskByNumber(tasks, input);
+			}if (input == 0)
+			{
+				printf("returning to main menu");
+			}
+			else
+				printf("invalid input, returning to main menu");
+		{
+		}if (input == 10)
+		{
+			break;
+		}
+
+		else
+		{
+			printf("Invalid input, re-enter the number");
+		}
+		
+	}
+
+
+
 	TASKLIST* tasks = CreateTaskList();
 	TASK t1 = { 1, "Task 1", "Status 1" };
 	TASK t21 = { 21, "Task 21", "Status 21" };
