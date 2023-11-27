@@ -88,16 +88,31 @@ bool RemoveTaskFromList(TASKLIST* taskList, int taskNum) {
 	if (taskList == NULL) {
 		return false;
 	}
-	
-	TASK* foundTask = GetTaskByNumber(taskList, taskNum);
 
-	if (GetTaskByNumber(taskList, taskNum) != NULL) {
-		return false;
+	TASK* current = taskList->first;
+	TASK* prev = NULL;
+	while (current != NULL) {
+		if (current->taskNum == taskNum) {
+			if (prev != NULL) {
+				prev->next = current->next;
+			}
+
+			if (taskList->first == current) {
+				taskList->first = current->next;
+			}
+
+			if (taskList->last == current) {
+				taskList->last = prev;
+			}
+
+			free(current);
+			return true;
+		}
+		prev = current;
+		current = current->next;
 	}
 
-
-
-	return true;
+	return false;
 }
 
 // Method that destroys all elements in a list and then the list itself at the end

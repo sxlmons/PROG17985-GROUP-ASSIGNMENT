@@ -13,6 +13,29 @@
 #include "tasklist.h"
 
 int main(void) {
+	TASKLIST* tasks = CreateTaskList();
+	if (tasks == NULL) {
+		fprintf(stderr, "Not enough memory to store tasks\n");
+		exit(EXIT_FAILURE);
+	}
+
+	TASK t1 = { 1, "Task 1", "Not Done" };
+	TASK t2 = { 2, "Task 2", "Not Done" };
+	TASK t3 = { 3, "Task 3", "Not Done" };
+
+	AddTaskToList(tasks, t1);
+	AddTaskToList(tasks, t2);
+	AddTaskToList(tasks, t3);
+	RemoveTaskFromList(tasks, 1);
+	RemoveTaskFromList(tasks, 2);
+	RemoveTaskFromList(tasks, 3);
+
+	TASK* current = tasks->first;
+	while (current != NULL) {
+		printf("%d %s %s\n", current->taskNum, current->taskName, current->taskStatus);
+		current = current->next;
+	}
+
 	// if you want i can change this so that it's all in functions I will probabley just move it into a new file to make it look nice
 	int input, TaskNum;
 	char name[MAX_NAME], status[MAX_NAME];
@@ -80,26 +103,6 @@ int main(void) {
 			printf("Invalid input, re-enter the number");
 		}
 		
-	}
-
-
-
-	TASKLIST* tasks = CreateTaskList();
-	TASK t1 = { 1, "Task 1", "Status 1" };
-	TASK t21 = { 21, "Task 21", "Status 21" };
-	TASK t24 = { 24, "Task 24", "Status 24" };
-	AddTaskToList(tasks, t1);
-	AddTaskToList(tasks, t21);
-	AddTaskToList(tasks, t24);
-
-	TASK* t = GetTaskByName(tasks, "TASK 21");
-	if (t != NULL) {
-		printf("%d %s %s\n", t->taskNum, t->taskName, t->taskStatus);
-	}
-
-	TASK* t2 = GetTaskByNumber(tasks, 21);
-	if (t2 != NULL) {
-		printf("%d %s %s\n", t2->taskNum, t2->taskName, t2->taskStatus);
 	}
 
 	DestroyTaskList(tasks);
