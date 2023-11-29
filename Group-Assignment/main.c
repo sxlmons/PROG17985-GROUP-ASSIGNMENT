@@ -47,6 +47,7 @@ int main(void) {
 		printf("2) Display task\n");
 		printf("3) Delete task\n");
 		printf("4) Search for task\n");
+		printf("5) Delete list\n");
 		printf("10) exit program\n");			//will change num later to fit in
 		printf("Please use the number associated with your choice: \n");
 		scanf_s(" %d", &input);
@@ -59,16 +60,16 @@ int main(void) {
 			printf("Please input the the status of the task: \n");
 			fgets(status, MAX_NAME, stdin);
 			TASK NewTask = {*&TaskNum, *name, *status};
-			//AddTaskToList(tasks, NewTask);
+			AddTaskToList(tasks, NewTask);
 		}if (input == 2)
 		{
-			//Display task
+			//Display task		do i even need to do this one?
 		}if (input == 3)
 		{
 			printf("Input the number for the task you wish to remove: \n");
 			scanf_s(" %d", &input);
 			RemoveTaskFromList(tasks, &input);
-		}if (input == 4)
+		}if (input == 4) {
 			printf("How would you like to search?\n");
 			printf("1) by name");
 			printf("2) by number");
@@ -77,7 +78,7 @@ int main(void) {
 			if (input == 1)
 			{
 				printf("please insert the name of the task: ");
-				fgets(name ,MAX_NAME, stdin);
+				fgets(name, MAX_NAME, stdin);
 				GetTaskByName(tasks, name);
 			}if (input == 2)
 			{
@@ -90,7 +91,18 @@ int main(void) {
 			}
 			else
 				printf("invalid input, returning to main menu");
-		{
+		}if (input == 5){
+			printf("are you sure you wish to delete the list Y/N: ");
+			fgets(name, MAX_NAME, stdin);
+			if (name == "Y" || name == "y") {
+				DestroyTaskList(tasks);
+			}
+			else
+			{
+				printf("Returning to main menu");
+			}
+			
+
 		}if (input == 10)		//need to change later if delete is changed
 		{
 			break;
