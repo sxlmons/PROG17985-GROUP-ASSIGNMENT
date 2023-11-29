@@ -47,15 +47,13 @@ int main(void) {
 		printf("2) Display task\n");
 		printf("3) Delete task\n");
 		printf("4) Search for task\n");
-		//  printf("save task\n");			might get rid of these later just putting them in for now
-		//	printf("load task\n");
 		printf("10) exit program\n");			//will change num later to fit in
 		printf("Please use the number associated with your choice: \n");
-		scanf_s("%d", &input);
+		scanf_s(" %d", &input);
 		if (input == 1)
 		{
 			printf("please input the task number you want to make: \n");
-			scanf_s("%d", &TaskNum);
+			scanf_s(" %d", &TaskNum);
 			printf("Please input the name of the task: \n");
 			fgets(name, MAX_NAME, stdin);
 			printf("Please input the the status of the task: \n");
@@ -68,24 +66,24 @@ int main(void) {
 		}if (input == 3)
 		{
 			printf("Input the number for the task you wish to remove: \n");
-			scanf_s("%d", &input);
-			//RemoveTaskFromList(*tasklist, &input);
+			scanf_s(" %d", &input);
+			RemoveTaskFromList(tasks, &input);
 		}if (input == 4)
 			printf("How would you like to search?\n");
 			printf("1) by name");
 			printf("2) by number");
 			printf("0) to return to main menu");
-			scanf_s("%d", &input);
+			scanf_s(" %d", &input);
 			if (input == 1)
 			{
 				printf("please insert the name of the task: ");
 				fgets(name ,MAX_NAME, stdin);
-				//GetTaskByName(tasks, name);
+				GetTaskByName(tasks, name);
 			}if (input == 2)
 			{
 				printf("Please enter the num corresponding to the task: ");
-				scanf_s("%d", &input);
-				//GetTaskByNumber(tasks, input);
+				scanf_s(" %d", &input);
+				GetTaskByNumber(tasks, input);
 			}if (input == 0)
 			{
 				printf("returning to main menu");
@@ -93,7 +91,7 @@ int main(void) {
 			else
 				printf("invalid input, returning to main menu");
 		{
-		}if (input == 10)
+		}if (input == 10)		//need to change later if delete is changed
 		{
 			break;
 		}
