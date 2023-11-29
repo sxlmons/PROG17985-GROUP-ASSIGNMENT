@@ -28,19 +28,19 @@ typedef struct task {
 	struct task* next;
 }TASK;
 
-TASK CreateTask(int taskNum, char* taskName, char* taskStatus);
+TASK CreateTask(int taskNum, char* taskName);
 
-bool SetTaskNum(TASK t, int taskNum);
+bool SetTaskNum(TASK* t, int taskNum);
 
-bool CopyTask(TASK* dest, const TASK src);
+bool CopyTask(TASK* dest, const TASK* src);
 
-void SetTaskName(TASK t, char* taskName);
+void SetTaskName(TASK* t, char* taskName);
 
-bool GetTaskNum(TASK t, int* taskNum);
+bool GetTaskNum(TASK* t, int* taskNum);
 
-bool GetTaskName(TASK t, char* taskName);
+bool GetTaskName(TASK* t, char* taskName);
 
-void DestroyName(TASK t);
+void DestroyTask(TASK* t);
 
 
 

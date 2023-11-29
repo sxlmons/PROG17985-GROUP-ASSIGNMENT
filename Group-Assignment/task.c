@@ -26,26 +26,47 @@ TASK CreateTask(int taskNum, char* taskName)
 	return t;
 }  
 
-bool SetTaskNum(TASK t, int taskNum) {
+bool SetTaskNum(TASK* t, int taskNum) 
+{
+	if (t == NULL)
+		return false;
 
+	t->taskNum = taskNum;
+		return true;
 }
 
-bool CopyTask(TASK* dest, const TASK src) {
-
+bool CopyTask(TASK* dest, const TASK* src) 
+{
+	if (dest == NULL || src == NULL)
+		return false;
+	dest->taskNum = src->taskNum;
+	strncpy(dest->taskName, src->taskName, MAX_NAME);
+		return true;
 }
 
-void SetTaskName(TASK t, char* taskName) {
 
+
+void SetTaskName(TASK* t, char* taskName) {
+	if (t != NULL) 
+	{
+		strncpy(t->taskName, taskName, MAX_NAME);
+	}
 }
 
-bool GetTaskNum(TASK t, int* taskNum) {
-
+bool GetTaskNum(TASK* t, int* taskNum) {
+	if (t == NULL || taskNum == NULL) 
+		return false;
+	*taskNum = t->taskNum; 
+		return true;
 }
 
-bool GetTaskName(TASK t, char* taskName) {
-
+bool GetTaskName(TASK* t, char* taskName) {
+	if (t == NULL || taskName == NULL) 
+		return false;
+	strncpy(taskName, t->taskName, MAX_NAME); 
+		return true;
 }
 
-void DestroyName(TASK t) {
+void DestroyTask(TASK* t) {
 
 }
