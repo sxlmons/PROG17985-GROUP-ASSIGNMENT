@@ -38,13 +38,15 @@ TASK* GetTaskByNumber(TASKLIST* taskList, int taskNum) {
 }
 
 TASK* GetTaskByName(TASKLIST* taskList, char* taskName) {
-	if (taskList == NULL) {
+	if (taskList == NULL) 
+	{
 		return NULL;
 	}
 
 	TASK* current = taskList->first;
 	while (current != NULL) {
-		if (_stricmp(taskName, current->taskName) == 0) {
+		if (_stricmp(taskName, current->taskName) == 0) 
+		{
 			return current;
 		}
 		current = current->next;
@@ -85,7 +87,8 @@ bool AddTaskToList(TASKLIST* taskList, TASK task) {
 }
 
 bool RemoveTaskFromList(TASKLIST* taskList, int taskNum) {
-	if (taskList == NULL) {
+	if (taskList == NULL) 
+	{
 		return false;
 	}
 

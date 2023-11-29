@@ -1,3 +1,4 @@
 #pragma once
 
-void menu1();
+void taskMenu();
+void menu2();

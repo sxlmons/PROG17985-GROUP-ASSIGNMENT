@@ -39,12 +39,11 @@ bool CopyTask(TASK* dest, const TASK* src)
 {
 	if (dest == NULL || src == NULL)
 		return false;
+
 	dest->taskNum = src->taskNum;
 	strncpy(dest->taskName, src->taskName, MAX_NAME);
 		return true;
 }
-
-
 
 void SetTaskName(TASK* t, char* taskName) {
 	if (t != NULL) 
@@ -53,16 +52,15 @@ void SetTaskName(TASK* t, char* taskName) {
 	}
 }
 
-bool GetTaskNum(TASK* t, int* taskNum) {
-	if (t == NULL || taskNum == NULL) 
-		return false;
-	*taskNum = t->taskNum; 
-		return true;
+int GetTaskNum(TASK t) 
+{
+	return t.taskNum;
 }
 
-bool GetTaskName(TASK* t, char* taskName) {
+bool GetTaskName(TASK* t, char* taskName) { 
 	if (t == NULL || taskName == NULL) 
 		return false;
+
 	strncpy(taskName, t->taskName, MAX_NAME); 
 		return true;
 }

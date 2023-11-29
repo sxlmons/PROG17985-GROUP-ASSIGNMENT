@@ -36,7 +36,7 @@ bool CopyTask(TASK* dest, const TASK* src);
 
 void SetTaskName(TASK* t, char* taskName);
 
-bool GetTaskNum(TASK* t, int* taskNum);
+int GetTaskNum(TASK t);
 
 bool GetTaskName(TASK* t, char* taskName);
 
