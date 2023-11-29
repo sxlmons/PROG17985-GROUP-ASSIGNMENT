@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tasklist.h"
+#include "menu.h"
 
 int main(void) {
 	TASKLIST* tasks = CreateTaskList();
@@ -41,15 +42,8 @@ int main(void) {
 	char name[MAX_NAME], status[MAX_NAME];
 	while (true)
 	{
-		printf("Welcome to task tracker 2000\n");
-		printf("These are the options you can choose from\n");
-		printf("1) Add task\n");
-		printf("2) Display task\n");
-		printf("3) Delete task\n");
-		printf("4) Search for task\n");
-		printf("5) Delete list\n");
-		printf("10) exit program\n");			//will change num later to fit in
-		printf("Please use the number associated with your choice: \n");
+		menu1();
+
 		scanf_s(" %d", &input);
 		if (input == 1)
 		{
