@@ -18,5 +18,6 @@ TASK* GetTaskByNumber(TASKLIST* taskList, int taskNum);
 TASK* GetTaskByName(TASKLIST* taskList, char* taskName);
 
 bool AddTaskToList(TASKLIST* taskList, TASK task);
+bool RemoveTaskFromList(TASKLIST* taskList, int taskNum);
 
 void DestroyTaskList(TASKLIST* taskList);
