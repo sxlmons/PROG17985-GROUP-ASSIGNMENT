@@ -20,4 +20,7 @@ TASK* GetTaskByName(TASKLIST* taskList, char* taskName);
 bool AddTaskToList(TASKLIST* taskList, TASK task);
 bool RemoveTaskFromList(TASKLIST* taskList, int taskNum);
 
+bool SaveTaskList(TASKLIST* taskList);
+bool LoadTaskList(TASKLIST* taskList);
+
 void DestroyTaskList(TASKLIST* taskList);
