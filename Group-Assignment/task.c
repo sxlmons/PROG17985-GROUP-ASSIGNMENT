@@ -22,7 +22,8 @@ TASK CreateTask(int taskNum, char* taskName)
 {
 	TASK t = { 0 };		//if you wish to get rid of the reminder that struct is not initialized (set to known/default values)
 	t.taskNum = taskNum;
-	strncpy(t.taskName, taskName, MAX_NAME);     
+	strncpy(t.taskName, taskName, MAX_NAME);
+	t.taskStatus = INCOMPLETE;
 	return t;
 }  
 
@@ -35,13 +36,14 @@ bool SetTaskNum(TASK* t, int taskNum)
 		return true;
 }
 
-bool CopyTask(TASK* dest, const TASK* src) 
+bool CopyTask(TASK* dest, TASK src) 
 {
-	if (dest == NULL || src == NULL)
+	if (dest == NULL)
 		return false;
 
-	dest->taskNum = src->taskNum;
-	strncpy(dest->taskName, src->taskName, MAX_NAME);
+	dest->taskNum = src.taskNum;
+	strncpy(dest->taskName, src.taskName, MAX_NAME);
+	dest->taskStatus = src.taskStatus;
 		return true;
 }
 

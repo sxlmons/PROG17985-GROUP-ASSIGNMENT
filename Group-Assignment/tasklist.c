@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "tasklist.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -66,9 +67,7 @@ bool AddTaskToList(TASKLIST* taskList, TASK task) {
 		return false;
 	}
 
-	newTask->taskNum = task.taskNum;
-	strncpy(newTask->taskName, task.taskName, MAX_NAME);
-	strncpy(newTask->taskStatus, task.taskStatus, MAX_NAME);
+	CopyTask(newTask, task);
 	newTask->next = NULL;
 
 	// This code will only run if there are 0 elements in the list
@@ -116,6 +115,58 @@ bool RemoveTaskFromList(TASKLIST* taskList, int taskNum) {
 	}
 
 	return false;
+}
+
+bool SaveTaskList(TASKLIST* taskList) {
+	if (taskList == NULL) {
+		return false;
+	}
+
+	FILE* fp = fopen("tasks.txt", "w");
+	if (fp == NULL) {
+		return false;
+	}
+
+	fprintf(fp, "%d\n", GetTaskListCount(taskList));
+
+	TASK* current = taskList->first;
+	while (current != NULL) {
+		fprintf(fp, "%d\n", GetTaskNum(*current));
+		fprintf(fp, "%s", current->taskName);
+		fprintf(fp, "%d\n", current->taskStatus);
+		current = current->next;
+	}
+
+	fclose(fp);
+
+	return true;
+}
+
+bool LoadTaskList(TASKLIST* taskList) {
+	if (taskList == NULL) {
+		return false;
+	}
+
+	FILE* fp = fopen("tasks.txt", "r");
+	if (fp == NULL) {
+		return false;
+	}
+
+	int taskCount;
+	fscanf(fp, "%d\n", &taskCount);
+
+	for (int i = 0; i < taskCount; i++) {
+		int taskNumber;
+		char taskName[MAX_NAME];
+		int taskStatus;
+
+		fscanf(fp, "%d\n", &taskNumber);
+		fscanf(fp, "%[^\n]s\n", taskName);
+		fscanf(fp, "%d\n", &taskStatus);
+	}
+
+	fclose(fp);
+	return true;
 }
 
 // Method that destroys all elements in a list and then the list itself at the end

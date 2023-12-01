@@ -10,50 +10,70 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "tasklist.h"
+#include "task.h"
 #include "menu.h"
 
 int main(void) {
 	TASKLIST* tasks = CreateTaskList();
 	if (tasks == NULL) 
 	{
-		fprintf(stderr, "Not enough memory to store tasks\n");
+		fprintf(stderr, "Not enough memory to store tasks, download more memory\n");
 		exit(EXIT_FAILURE);
 	}
 
 	// if you want i can change this so that it's all in functions I will probabley just move it into a new file to make it look nice
-	int choice, choice2, choice3, TaskNum;
-	char name[MAX_NAME], status[MAX_NAME];
+	int choice2, choice3, TaskNum, choice;
+	char name[MAX_NAME], status[MAX_NAME]; 
 	 
+	bool exited = false;
+
 	do { 
 
 		taskMenu(); 
-		scanf_s(" %d", &choice); 
-		getchar();    
+		scanf_s("%d", &choice); 
+		(void)getchar();     
 
-		switch (choice) {
+		switch (choice) 
+		{
+		//creating task
 		case 1:
-			printf("please input the task number you want to make: \n");
+			printf("\nTask Number: ");
 			scanf_s(" %d", &TaskNum);
-			getchar();
 
-			printf("Please input the name of the task: \n");
+			//eat newline
+			(void)getchar();
+
+			printf("\nTask Name: ");
 			fgets(name, MAX_NAME, stdin);
-
-			printf("Please input the the status of the task: \n");
-			fgets(status, MAX_NAME, stdin);
-
-			TASK NewTask = { TaskNum, name, status }; 
-
-			AddTaskToList(tasks, NewTask);
+			AddTaskToList(tasks, CreateTask(TaskNum, name));
 			break;
+
 		case 2:
 			// Display task
 			break;
 		case 3:
-			printf("Input the number for the task you wish to remove: \n");
+			editTaskMenu();   
 			scanf_s(" %d", &choice2);
-			RemoveTaskFromList(tasks, &choice2);
+
+			if (choice2 == 1) 
+			{
+				// 
+			}
+			else if (choice2 == 2)
+			{
+				//rename
+			}
+			else if (choice2 == 3)
+			{
+				int removeTag;
+				printf("\nEnter the Task Number: ");
+				scanf_s("%d", &removeTag);
+				RemoveTaskFromList(tasks, removeTag);      
+			}
+			 
+
 			break;
 		case 4:
 			printf("How would you like to search?\n");
@@ -74,8 +94,10 @@ int main(void) {
 			else if (choice3 == 2)
 			{
 				printf("Please enter the num corresponding to the task: ");
-				scanf_s(" %d", &choice3);
-				GetTaskByNumber(tasks, choice3);
+				scanf_s("%d", &choice3);
+				TASK* foundTask = GetTaskByNumber(tasks, choice3);
+				printf("Found Task!\n Task Number:%d\nTask Name: %s\nTask Status: %s\n", foundTask->taskNum,
+				foundTask->taskName, foundTask->taskStatus == INCOMPLETE ? "Incomplete" : "Complete");
 			}
 			else if (choice3 == 0)
 			{
@@ -99,13 +121,22 @@ int main(void) {
 			break;
 
 		case 10:
+			exited = true;
 			break;
 
 		default:
 			printf("Invalid input, re-enter the number");
 			break;
 		}
-	} while (true);
+		
+		/*int c;
+		while ((c = getchar()) != '\n' && c != EOF);*/
+	} while (choice != 10);  
+
+	printf("Saving tasks...\n");
+	if (!SaveTaskList(tasks)) {
+		printf("dang you failed to save, sucks to be you");
+	}
 
 	DestroyTaskList(tasks);
 

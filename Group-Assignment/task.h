@@ -20,11 +20,16 @@
 //preprocessor directives
 #define MAX_NAME	100
 
+typedef enum taskStatus {
+	COMPLETE = 0,
+	INCOMPLETE = 1,
+} TASK_STATUS;
+
 // task interface
 typedef struct task { 
 	int taskNum;
 	char taskName[MAX_NAME];
-	char taskStatus[MAX_NAME];
+	TASK_STATUS taskStatus;
 	struct task* next;
 }TASK;
 
@@ -32,7 +37,7 @@ TASK CreateTask(int taskNum, char* taskName);
 
 bool SetTaskNum(TASK* t, int taskNum);
 
-bool CopyTask(TASK* dest, const TASK* src);
+bool CopyTask(TASK* dest, TASK src);
 
 void SetTaskName(TASK* t, char* taskName);
 
