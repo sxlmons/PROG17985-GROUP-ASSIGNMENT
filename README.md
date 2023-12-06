@@ -14,4 +14,4 @@ Harris:
 
 Chris:
 - Console user interface
-- Menu functinality
+- Menu functionality
