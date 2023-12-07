@@ -10,9 +10,12 @@
 *
 */
 
-#include "data.h" 
+#include "data.h"
+#include "task.h"
 
-void saveTasks() {
+void saveTasks(TASK_LIST* list)
+{
+    // open the file
     FILE* file = fopen("tasks.txt", "w");
     if (file == NULL) {
         printf("Unable to open file for writing.\n");
@@ -21,15 +24,17 @@ void saveTasks() {
 
     int count = 0;
 
-    TASK temp = head;
+    // count the tasks
+    TASK temp = list->head;
     while (temp != NULL) {
         count++;
         temp = temp->next;
     }
 
+    // write to file
     fprintf(file, "%d\n", count);
 
-    temp = head;
+    temp = list->head;
     while (temp != NULL) {
         fprintf(file, "%d\n", temp->taskNum);
         fprintf(file, "%s\n", temp->taskName);
@@ -37,44 +42,76 @@ void saveTasks() {
         temp = temp->next;
     }
 
+    // close the file
     fclose(file);
     printf("Tasks saved successfully!\n");
 }
 
-void loadTasks() {
-    const int TASKNAME_MAXCHARS = 49;
-    const int TASKSTATUS_MAXCHARS = 19;
-
+void loadTasks(TASK_LIST* list)
+{
+    // open the file
     FILE* file = fopen("tasks.txt", "r");
-    if (file == NULL) {
+    if (file == NULL)
+    {
         printf("Unable to open file for reading.\n");
         return;
     }
 
+    // count the tasks
     int count;
-    fscanf(file, "%d\n", &count);
+    if (fscanf(file, "%d\n", &count) == EOF) 
+    {
+        printf("Failed to read task count from file.\n"); 
+        return;
+    }
 
     int taskNum;
     char taskName[MAXNAME];
     char status[MAXSTATUS];
 
-    for (int i = 0; i < count; i++) {
-        fscanf(file, "%d\n", &taskNum);
-        fgets(taskName, TASKNAME_MAXCHARS, file);
-        fgets(status, TASKSTATUS_MAXCHARS, file);
-
-        // Removing trailing new lines that the strings get from fgets
-        strtok(taskName, "\n");
-        strtok(status, "\n");
-
-        TASK new_task = CreateTask(taskNum, taskName, status);
-
-        if (head == NULL) {
-            head = new_task;
+    for (int i = 0; i < count; i++)
+    {
+        // read tasks
+        if (fscanf(file, "%d\n", &taskNum) == EOF) 
+        {
+            printf("Failed to read task number from file.\n"); 
+            return;
         }
-        else {
-            TASK temp = head;
-            while (temp->next != NULL) {
+        fgets(taskName, MAXNAME, file);
+        fgets(status, MAXSTATUS, file);
+
+        // Removing trailing new lines that the strings get from fgets    
+        // strtok’s return value is stored in result. If result is not NULL,
+        // it’s copied back into taskName or status
+        char* result;
+
+        result = strtok(taskName, "\n"); 
+        if (result != NULL) { 
+            strcpy(taskName, result); 
+        }
+
+        result = strtok(status, "\n"); 
+        if (result != NULL) { 
+            strcpy(status, result);
+        }
+
+        // create and add tasks
+        TASK new_task = CreateTask(taskNum, taskName, status);
+        if (new_task == NULL)
+        {
+            printf("Failed to create new task.\n");
+            return;
+        }
+
+        if (list->head == NULL)
+        {
+            list->head = new_task;
+        }
+        else
+        {
+            TASK temp = list->head;
+            while (temp->next != NULL)
+            {
                 temp = temp->next;
             }
             temp->next = new_task;
@@ -82,6 +119,8 @@ void loadTasks() {
         }
     }
 
+    // close the file
     fclose(file);
     printf("Tasks loaded successfully!\n");
 }
+

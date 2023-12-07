@@ -16,6 +16,6 @@
 
 #include "task.h"
 
-void saveTasks();
+void saveTasks(TASK_LIST* list);  
 
-void loadTasks();
+void loadTasks(TASK_LIST* list);

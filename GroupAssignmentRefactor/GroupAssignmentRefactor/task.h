@@ -30,7 +30,14 @@ typedef struct task {
     struct task* prev;
 } *TASK;
 
-extern TASK head;  
+// initailly we had a globally scoped variable here but replaced it with TASK_LIST
+typedef struct task_list {
+    TASK head;
+} TASK_LIST;
+
+TASK_LIST* CreateTaskList();
+
+void DestroyTaskList(TASK_LIST* list);
 
 TASK CreateTask(int taskNum, char* taskName, char* status);
 

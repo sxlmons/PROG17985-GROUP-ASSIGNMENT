@@ -1,6 +1,28 @@
-﻿  data.c
-  interface.c
-  main.c
+﻿  interface.c
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(321,18): warning C4047: 'function': 'TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(321,18): warning C4024: 'CopyTask': different types for formal and actual parameter 1
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(321,28): warning C4047: 'function': 'const TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(321,28): warning C4024: 'CopyTask': different types for formal and actual parameter 2
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(344,26): warning C4047: 'function': 'TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(344,26): warning C4024: 'CopyTask': different types for formal and actual parameter 1
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(344,36): warning C4047: 'function': 'const TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(344,36): warning C4024: 'CopyTask': different types for formal and actual parameter 2
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(345,26): warning C4047: 'function': 'TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(345,26): warning C4024: 'CopyTask': different types for formal and actual parameter 1
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(345,29): warning C4047: 'function': 'const TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(345,29): warning C4024: 'CopyTask': different types for formal and actual parameter 2
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(346,26): warning C4047: 'function': 'TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(346,26): warning C4024: 'CopyTask': different types for formal and actual parameter 1
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(346,29): warning C4047: 'function': 'const TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(346,29): warning C4024: 'CopyTask': different types for formal and actual parameter 2
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(347,29): warning C4047: 'function': 'TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(347,29): warning C4024: 'DestroyTask': different types for formal and actual parameter 1
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(359,21): warning C4047: 'function': 'TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\interface.c(359,21): warning C4024: 'DestroyTask': different types for formal and actual parameter 1
   task.c
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\task.c(40,25): warning C4047: 'function': 'TASK *' differs in levels of indirection from 'TASK'
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\task.c(40,25): warning C4024: 'DestroyTask': different types for formal and actual parameter 1
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\task.c(71,20): warning C4028: formal parameter 1 different from declaration
+C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\GroupAssignmentRefactor\task.c(71,37): warning C4028: formal parameter 2 different from declaration
   Generating Code...
-  GroupAssignmentRefactor.vcxproj -> C:\Users\joshu\Downloads\GroupAssignmentRefactor_Harris_Revision_1\GroupAssignmentRefactor\x64\Debug\GroupAssignmentRefactor.exe
+  GroupAssignmentRefactor.vcxproj -> C:\Users\joshu\source\repos\Group-Assignment\GroupAssignmentRefactor\x64\Debug\GroupAssignmentRefactor.exe

@@ -19,52 +19,56 @@
 #include "data.h"
 
 
-
-int main() 
+int main()
 {
-    loadTasks();  
+    // create the task list and laod the tasks
+    TASK_LIST* list = CreateTaskList();
+    loadTasks(list);
 
-    int choice;
+    int choice = 0;
 
-    while (1) 
+    while (choice != 9)
     {
-        taskMenu(); 
+        taskMenu();
 
-        getInputNum("Selection: ", "%d", &choice);  
+        getInputNum("Selection: ", "%d", &choice);
 
-        switch (choice) 
+        switch (choice)
         {
         case 1:
-            addTask();
+            addTask(list);
             break;
         case 2:
-            deleteTask();             
+            deleteTask(list);
             break;
         case 3:
-            updateTask();
+            updateTask(list);
             break;
         case 4:
-            displaySingleTask(); 
+            displaySingleTask(list);
             break;
         case 5:
-            displayRangeTask(); 
+            displayRangeTask(list);
             break;
         case 6:
-            displayAllTasks();    
+            displayAllTasks(list);
             break;
         case 7:
-            searchForTask();
+            searchForTask(list);
             break;
         case 8:
-            displayTasksSorted();
+            displayTasksSorted(list);
             break;
         case 9:
             // Save tasks to file upon exiting
-            saveTasks();
-            exit(EXIT_SUCCESS); 
+            saveTasks(list);
+            break;
         default:
             printf("\nMust be a Numerical Value. 1 - 9.\n");
         }
     }
+    // free memory from the list
+    DestroyTaskList(list);
     return 0;
 }
+

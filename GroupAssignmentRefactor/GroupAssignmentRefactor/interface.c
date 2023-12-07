@@ -26,7 +26,7 @@ void taskMenu() {
     printf("9. Exit\n");
 }
 
-// function for input validation loop
+// function for input validation loop for numerical inputs
 void getInputNum(char* prompt, char* format, void* value) 
 {
     printf(prompt, "%d");
@@ -37,7 +37,7 @@ void getInputNum(char* prompt, char* format, void* value)
     }
 }
 
-// function for input validation loop
+// function for input validation loop for alphabetical inputs
 void getInputAlpha(char* prompt, char* format, void* value)
 {
 	printf("%s", prompt);
@@ -51,78 +51,93 @@ void getInputAlpha(char* prompt, char* format, void* value)
 		while (getchar() != '\n');
 	}
 }
-
-void addTask()
+ 
+void addTask(TASK_LIST* list) 
 {
-    int taskNum;
-    char taskName[MAXNAME];
-    char status[MAXSTATUS];
+    int taskNum; 
+    char taskName[MAXNAME]; 
+    char status[MAXSTATUS]; 
 
     // gather input from user; task num, name, and status
-    getInputNum("Enter task number: ", "%d", &taskNum);
-	getInputAlpha("Enter task name (up to 50 characters): ", "%50[^\n]s", taskName);
-	getInputAlpha("Enter task status (up to 20 characters): ", "%20[^\n]s", status);
+    getInputNum("Enter task number: ", "%d", &taskNum); 
+    getInputAlpha("Enter task name (up to 50 characters): ", "%50[^\n]s", taskName); 
+    getInputAlpha("Enter task status (up to 20 characters): ", "%20[^\n]s", status); 
 
     // create a new task with given values
     TASK new_task = CreateTask(taskNum, taskName, status);
 
     // if the head of the list is null assign
-    if (head == NULL) 
+    if (list->head == NULL) 
     {
-        head = new_task;
+        list->head = new_task; 
     }
-    else 
+    else
     {
         // if it not null traverse to the end of the list
-        TASK temp = head;
+        TASK temp = list->head; 
         while (temp->next != NULL) 
         {
-            temp = temp->next;
+            temp = temp->next; 
         }
         // add the new task to the end of the list and update the previous pointer
-        temp->next = new_task;
-        new_task->prev = temp;
+        temp->next = new_task; 
+        new_task->prev = temp; 
     }
 
-    printf("Task added successfully!\n");
+    printf("Task added successfully!\n"); 
 }
 
-void deleteTask()
+
+void deleteTask(TASK_LIST* list)
 {
     int taskNum;
 
     //gather input from user; task number
-    getInputNum("Enter the task number of the task to delete: ", "%d", &taskNum); 
+    getInputNum("Enter the task number of the task to delete: ", "%d", &taskNum);
 
-    if (head == NULL) {
+    if (list->head == NULL) 
+    {
         printf("No tasks to delete.\n");
         return;
     }
+    // Initialize a temporary pointer to the head of the list.
+    TASK temp = list->head;
 
-    TASK temp = head;
-    while (temp != NULL && temp->taskNum != taskNum) {
+    // Iterate through the list until the end is reached or a task with the given task number is found.
+    while (temp != NULL && temp->taskNum != taskNum) 
+    {
         temp = temp->next;
     }
 
-    if (temp == NULL) {
+    if (temp == NULL) 
+    {
         printf("Task not found.\n");
     }
-    else {
-        if (temp->prev != NULL) {
+    //delete task
+    else 
+    {
+        // If the task is not the first task in the list, update the next pointer of the previous task.
+        if (temp->prev != NULL) 
+        {
             temp->prev->next = temp->next;
         }
-        else {
-            head = temp->next;
+        // If the task is the first task in the list, update the head of the list.
+        else 
+        {
+            list->head = temp->next;
         }
-        if (temp->next != NULL) {
+        // If the task is not the last task in the list, update the prev pointer of the next task.
+        if (temp->next != NULL) 
+        {
             temp->next->prev = temp->prev;
         }
+        // free memory
         DestroyTask(&temp);
         printf("Task deleted successfully!\n");
     }
 }
 
-void updateTask()
+void updateTask(TASK_LIST* list)
 {
     int taskNum;
     char taskName[MAXNAME];
@@ -130,12 +145,15 @@ void updateTask()
 
     getInputNum("Enter the task number of the task to update: ", "%d", &taskNum);
 
-    if (head == NULL) {
+    if (list->head == NULL) {
         printf("No tasks to update.\n");
         return;
     }
 
-    TASK temp = head;
+    // Initialize a temporary pointer to the head of the list.
+    TASK temp = list->head;
+
+    // Iterate through the list until the end is reached or a task with the given task number is found.
     while (temp != NULL && temp->taskNum != taskNum) {
         temp = temp->next;
     }
@@ -143,63 +161,80 @@ void updateTask()
     if (temp == NULL) {
         printf("Task not found.\n");
     }
-    else {
+    // update the task
+    else 
+    {
         getInputAlpha("Enter new task name (up to 50 characters): ", "%50[^\n]s", taskName);
         taskName[MAXNAME - 1] = '\0';  // ensure null termination     
 
         getInputAlpha("Enter new task status (up to 20 characters): ", "%20[^\n]s", status);
         status[MAXSTATUS - 1] = '\0';  // ensure null termination 
 
+        // Update the task name and status of the task.
         SetTaskName(&temp, taskName);
         SetTaskStatus(&temp, status);
 
-        printf("Task updated successfully!\n"); 
+        printf("Task updated successfully!\n");
     }
 }
 
-void displaySingleTask()
+
+void displaySingleTask(TASK_LIST* list)
 {
     int taskNum;
     getInputNum("Enter the task number of the task to display: ", "%d", &taskNum);
 
-    if (head == NULL) {
+    if (list->head == NULL) 
+    {
         printf("No tasks to display.\n");
         return;
     }
+    // Initialize a temporary pointer to the head of the list.
+    TASK temp = list->head;
 
-    TASK temp = head;
-    while (temp != NULL && temp->taskNum != taskNum) {
+    // Iterate through the list until the end is reached or a task with the given task number is found.
+    while (temp != NULL && temp->taskNum != taskNum) 
+    {
         temp = temp->next;
     }
-
-    if (temp == NULL) {
+    // check if its a real tasks
+    if (temp == NULL) 
+    {
         printf("Task not found.\n");
     }
-    else {
+    else 
+    {
+        // otherwise print the task that was found and its details
         printf("Task Number: %d\n", temp->taskNum);
         printf("Task Name: %s\n", temp->taskName);
         printf("Task Status: %s\n", temp->status);
     }
 }
 
-void displayRangeTask()
+void displayRangeTask(TASK_LIST* list)
 {
     int startTaskNum, endTaskNum;
 
     getInputNum("Enter the task number of the task to display: ", "%d", &startTaskNum);
     getInputNum("Enter the task number to end displaying at: ", "%d", &endTaskNum);
 
-    if (head == NULL) {
+    if (list->head == NULL) 
+    {
         printf("No tasks to display.\n");
         return;
     }
+    // Initialize a temporary pointer to the head of the list.
+    TASK temp = list->head;
 
-    TASK temp = head;
-    while (temp != NULL && temp->taskNum < startTaskNum) {
+    // Iterate through the list until the end is reached or a task with the given start task number is found.
+    while (temp != NULL && temp->taskNum < startTaskNum) 
+    {
         temp = temp->next;
     }
-
-    while (temp != NULL && temp->taskNum <= endTaskNum) {
+    // Continue iterating through the list, printing the details of each task, until the end is reached
+    // or a task with a task number greater than the end task number is found.
+    while (temp != NULL && temp->taskNum <= endTaskNum) 
+    { 
         printf("Task Number: %d\n", temp->taskNum);
         printf("Task Name: %s\n", temp->taskName);
         printf("Task Status: %s\n", temp->status);
@@ -207,14 +242,18 @@ void displayRangeTask()
     }
 }
 
-void displayAllTasks() {
-    if (head == NULL) {
+void displayAllTasks(TASK_LIST* list) {
+    if (list->head == NULL) 
+    {
         printf("No tasks to display.\n");
         return;
     }
+    // Initialize a temporary pointer to the head of the list.
+    TASK temp = list->head;
 
-    TASK temp = head;
-    while (temp != NULL) {
+    // while the temporary pointer is not null print each task
+    while (temp != NULL) 
+    {
         printf("Task Number: %d\n", temp->taskNum);
         printf("Task Name: %s\n", temp->taskName);
         printf("Task Status: %s\n\n", temp->status);
@@ -222,32 +261,42 @@ void displayAllTasks() {
     }
 }
 
-void searchForTask() {
+void searchForTask(TASK_LIST* list) 
+{
     int taskNum;
     getInputNum("Enter the task number of the task to search for: ", "%d", &taskNum);
 
-    if (head == NULL) {
+    if (list->head == NULL) 
+    {
         printf("No tasks to search.\n");
         return;
     }
+    // Initialize a temporary pointer to the head of the list.
+    TASK temp = list->head;
 
-    TASK temp = head;
-    while (temp != NULL && temp->taskNum != taskNum) {
+    // Iterate through the list until the end is reached or a task with the given task number is found.
+    while (temp != NULL && temp->taskNum != taskNum) 
+    {
         temp = temp->next;
     }
-
-    if (temp == NULL) {
+    // If the end of the list is reached without finding the task, print an error message.
+    if (temp == NULL) 
+    {
         printf("Task not found.\n");
     }
-    else {
+    else 
+    {
+        // Otherwise, print the details of the task.
         printf("Task Number: %d\n", temp->taskNum);
         printf("Task Name: %s\n", temp->taskName);
         printf("Task Status: %s\n", temp->status);
     }
 }
 
-void displayTasksSorted() {
-    if (head == NULL) {
+void displayTasksSorted(TASK_LIST* list) 
+{
+    if (list->head == NULL) 
+    {
         printf("No tasks to display.\n");
         return;
     }
@@ -258,7 +307,7 @@ void displayTasksSorted() {
         printf("Enter the sort order ('a' for ascending or 'd' for descending): ");
         scanf(" %c", &sortOrder);  // The space before %c skips any whitespace characters, including '\n'
         while (getchar() != '\n');  // This consumes the '\n' character left in the input buffer by scanf
-        if (sortOrder != 'a' && sortOrder != 'd') 
+        if (sortOrder != 'a' && sortOrder != 'd')
         {
             printf("Invalid input. Please enter 'a' for ascending or 'd' for descending.\n");
         }
@@ -267,16 +316,20 @@ void displayTasksSorted() {
     bool ascending = sortOrder == 'a';
 
     // Create a copy of the linked list
-    TASK copy = NULL, temp = head;
-    while (temp != NULL) {
+    TASK copy = NULL, temp = list->head;
+    while (temp != NULL) 
+    {
         TASK new_task = CreateTask(0, "", "");  // Create an empty task
-        CopyTask(&new_task, &temp);  // Copy the task
-        if (copy == NULL) {
+        CopyTask(new_task, temp);  // Copy the task
+        if (copy == NULL) 
+        {
             copy = new_task;
         }
-        else {
+        else 
+        {
             TASK copy_temp = copy;
-            while (copy_temp->next != NULL) {
+            while (copy_temp->next != NULL) 
+            {
                 copy_temp = copy_temp->next;
             }
             copy_temp->next = new_task;
@@ -287,38 +340,38 @@ void displayTasksSorted() {
 
     // Sort the copied linked list
     TASK i, j;
-    for (i = copy; i->next != NULL; i = i->next) {
-        for (j = i->next; j != NULL; j = j->next) {
+    for (i = copy; i->next != NULL; i = i->next) 
+    {
+        for (j = i->next; j != NULL; j = j->next) 
+        {
             bool condition = ascending ? i->taskNum > j->taskNum : i->taskNum < j->taskNum;
-            if (condition) {
+            if (condition) 
+            {
                 // Swap tasks
                 TASK tempTask = CreateTask(0, "", "");  // Create an empty task
-                CopyTask(&tempTask, &i);  // Copy task i to tempTask
-                CopyTask(&i, &j);  // Copy task j to i
-                CopyTask(&j, &tempTask);  // Copy tempTask to j
-                DestroyTask(&tempTask);  // Destroy tempTask
+                CopyTask(tempTask, i);  // Copy task i to tempTask
+                CopyTask(i, j);  // Copy task j to i
+                CopyTask(j, tempTask);  // Copy tempTask to j
+                DestroyTask(tempTask);  // Destroy tempTask
             }
         }
     }
 
     // Display the sorted tasks
     temp = copy;
-    while (temp != NULL) {
+    while (temp != NULL) 
+    {
         printf("Task Number: %d\n", temp->taskNum);
         printf("Task Name: %s\n", temp->taskName);
-        printf("Task Status: %s\n", temp->status);
-        printf("\n");
-        temp = temp->next;
-    }
-
-    // Destroy the copied linked list
-    temp = copy;
-    while (temp != NULL) {
+        printf("Task Status: %s\n\n", temp->status);
         TASK next = temp->next;
-        DestroyTask(&temp);
+        DestroyTask(temp);
         temp = next;
     }
 }
+
+
+
 
 
 

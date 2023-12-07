@@ -30,18 +30,18 @@ void getInputAlpha(char* prompt, char* format, void* value);
 
 //void getInputAlpha(char* prompt, char* value, int size);	future implementation for reading spaces
 
-void addTask();
+void addTask(TASK_LIST* list);
 
-void deleteTask();
+void deleteTask(TASK_LIST* list);
 
-void updateTask();
+void updateTask(TASK_LIST* list);
 
-void displaySingleTask();
+void displaySingleTask(TASK_LIST* list);
 
-void displayRangeTask();
+void displayRangeTask(TASK_LIST* list);
 
-void displayAllTasks();
+void displayAllTasks(TASK_LIST* list);
 
-void displayTasksSorted();
+void displayTasksSorted(TASK_LIST* list);
 
-void searchForTask();
+void searchForTask(TASK_LIST* list);
